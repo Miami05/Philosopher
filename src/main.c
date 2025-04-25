@@ -6,7 +6,7 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 20:44:14 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/18 02:03:32 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/04/25 03:46:33 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	handle_philos(t_data *data)
 	int			i;
 	pthread_t	monitor_thread;
 
+	init_philosophers(data);
 	i = 0;
 	while (i < data->nb_philos)
 	{
@@ -28,7 +29,7 @@ void	handle_philos(t_data *data)
 		}
 		i++;
 	}
-	if (pthread_create(&monitor_thread, NULL, monitor_routine, &data))
+	if (pthread_create(&monitor_thread, NULL, monitor_routine, data))
 	{
 		printf("Error creating monitor thread\n");
 		return ;
@@ -39,10 +40,31 @@ void	handle_philos(t_data *data)
 	pthread_join(monitor_thread, NULL);
 }
 
+int	validate_input(int argc, char **argv)
+{
+	int			i;
+	int			j;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return (1);
+			j++;
+		}
+		if (ft_atoi(argv[i]) <= 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	int			i;
 
 	if (argc < 5 || argc > 6)
 	{
@@ -50,20 +72,16 @@ int	main(int argc, char **argv)
 			"time_to_sleep number_of_times_each_philosopher_must_eat\n");
 		return (1);
 	}
+	if (validate_input(argc, argv))
+	{
+		printf("The number of threads needs to be a positive nunber\n");
+		return (1);
+	}
 	if (init_data(&data, argc, argv))
 	{
 		printf("Init failed\n");
 		return (1);
 	}
-	init_philosophers(&data);
 	handle_philos(&data);
-	i = 0;
-	while (i < data.nb_philos)
-	{
-		pthread_mutex_destroy(&data.forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&data.print_lock);
-	free(data.philo);
-	free(data.forks);
+	clear_mutex(&data);
 }

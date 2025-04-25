@@ -1,25 +1,25 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 20:44:34 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/18 02:53:35 by ldurmish         ###   ########.fr       */
-/*                                                                            */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 philo.h											:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: ldurmish < ldurmish@student.42wolfsburg.d	+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2025/04/17 20:44:34 by ldurmish		   #+#	  #+#			  */
+/*	 Updated: 2025/04/24 22:34:53 by ldurmish		  ###	########.fr		  */
+/*																			  */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
+
 # define PHILO_H
 
 # define _DEFAULT_SOURCE
 # define _BSD_SOURCE
 # define _XOPEN_SOURCE 500
-
+# include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <pthread.h>
 # include <sys/time.h>
 # include <unistd.h>
 
@@ -61,5 +61,7 @@ void	ft_usleep(int time_in_ms);
 long	ft_time(void);
 void	*monitor_routine(void *arg);
 long	get_time_in_ms(t_philo *current);
+void	clear_mutex(t_data *data);
+int		one_philosopher(t_data *data, t_philo *philo);
 
 #endif

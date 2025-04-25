@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <pthread.h>
 
 int	init_data(t_data *data, int argc, char **argv)
 {
@@ -28,16 +29,35 @@ int	init_data(t_data *data, int argc, char **argv)
 	data->all_ate = 0;
 	data->start_time = ft_time();
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philos);
-	if (!data->forks)
-		return (1);
 	i = -1;
 	while (++i < data->nb_philos)
 		pthread_mutex_init(&data->forks[i], NULL);
 	pthread_mutex_init(&data->print_lock, NULL);
 	pthread_mutex_init(&data->death_lock, NULL);
+	pthread_mutex_init(&data->meal_lock, NULL);
 	data->philo = malloc(sizeof(t_philo) * data->nb_philos);
-	if (!data->philo)
+	if (!data->philo || !data->forks)
 		return (1);
+	return (0);
+}
+
+int	one_philosopher(t_data *data, t_philo *philo)
+{
+	if (data->nb_philos == 1)
+	{
+		pthread_mutex_lock(&data->print_lock);
+		printf("%ld Philo %d is thinking\n",
+			ft_time() - data->start_time, data->philo->id);
+		pthread_mutex_unlock(&data->print_lock);
+		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(&data->print_lock);
+		printf("%ld Philo %d has taken a fork\n",
+			ft_time() - data->start_time, data->philo->id);
+		pthread_mutex_unlock(&data->print_lock);
+		ft_usleep(data->time_to_die);
+		pthread_mutex_unlock(philo->left_fork);
+		return (1);
+	}
 	return (0);
 }
 

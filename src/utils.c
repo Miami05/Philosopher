@@ -6,7 +6,7 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 22:24:23 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/18 03:08:02 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/04/25 03:47:04 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,31 @@ long	ft_time(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-long	get_time_in_ms(t_philo *current);
+void	clear_mutex(t_data *data)
+{
+	int					i;
+
+	i = 0;
+	while (i < data->nb_philos)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&data->print_lock);
+	pthread_mutex_destroy(&data->meal_lock);
+	pthread_mutex_destroy(&data->death_lock);
+	free(data->philo);
+	free(data->forks);
+}
+
+long	get_time_in_ms(t_philo *current)
+{
+	long				current_time;
+	long				last_meal_time;
+
+	current_time = ft_time();
+	pthread_mutex_lock(&current->data->meal_lock);
+	last_meal_time = current->last_meal;
+	pthread_mutex_unlock(&current->data->meal_lock);
+	return (current_time - last_meal_time);
+}
