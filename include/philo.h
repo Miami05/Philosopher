@@ -63,5 +63,9 @@ void	*monitor_routine(void *arg);
 long	get_time_in_ms(t_philo *current);
 void	clear_mutex(t_data *data);
 int		one_philosopher(t_data *data, t_philo *philo);
+void	philo_activity(t_data *data, t_philo *philo,
+			pthread_mutex_t *first_fork, pthread_mutex_t *second_fork);
+int		check_death(t_philo *philo);
+int		check_all_ate(t_data *data, int *all_ate);
 
 #endif

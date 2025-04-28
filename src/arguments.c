@@ -46,12 +46,12 @@ int	one_philosopher(t_data *data, t_philo *philo)
 	if (data->nb_philos == 1)
 	{
 		pthread_mutex_lock(&data->print_lock);
-		printf("%ld Philo %d is thinking\n",
+		printf("%ld %d is thinking\n",
 			ft_time() - data->start_time, data->philo->id);
 		pthread_mutex_unlock(&data->print_lock);
 		pthread_mutex_lock(philo->left_fork);
 		pthread_mutex_lock(&data->print_lock);
-		printf("%ld Philo %d has taken a fork\n",
+		printf("%ld %d has taken a fork\n",
 			ft_time() - data->start_time, data->philo->id);
 		pthread_mutex_unlock(&data->print_lock);
 		ft_usleep(data->time_to_die);

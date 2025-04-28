@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+         #
+#    By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/17 21:13:08 by ldurmish          #+#    #+#              #
-#    Updated: 2025/04/18 02:46:58 by ldurmish         ###   ########.fr        #
+#    Updated: 2025/04/27 18:08:04 by ldurmish         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ RED = \033[31m
 GREEN = \033[32m
 
 # Source files for philosopher
-SRCS = $(SRC)main.c $(SRC)arguments.c $(SRC)utils.c $(SRC)death.c
+SRCS = $(SRC)main.c $(SRC)arguments.c $(SRC)utils.c \
+	   $(SRC)death.c $(SRC)philos_activity.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)

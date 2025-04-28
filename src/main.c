@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
+/*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 20:44:14 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/25 03:46:33 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/04/27 21:00:22 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ int	main(int argc, char **argv)
 	}
 	handle_philos(&data);
 	clear_mutex(&data);
+	return (0);
 }
