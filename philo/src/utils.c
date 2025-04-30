@@ -6,7 +6,7 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 22:24:23 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/27 17:56:14 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:47:07 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 int	ft_atoi(char *str)
 {
-	int					res;
+	int		result;
+	int		digit;
 
-	res = 0;
+	result = 0;
 	while (*str >= '0' && *str <= '9')
 	{
-		res = res * 10 + (*str - '0');
+		digit = *str - '0';
+		if (result > (INT_MAX - digit) / 10)
+			return (-1);
+		result = result * 10 + digit;
 		str++;
 	}
-	return (res);
+	return (result);
 }
 
 void	ft_usleep(int time_in_ms)

@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 00:38:20 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/27 21:31:30 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:01:22 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	*monitor_routine(void *arg)
 int	check_death(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->death_lock);
-	if (philo->data->someone_died)
+	if (philo->data->someone_died || philo->data->all_ate)
 	{
 		pthread_mutex_unlock(&philo->data->death_lock);
 		return (1);
@@ -78,41 +78,38 @@ int	check_death(t_philo *philo)
 	return (0);
 }
 
-void	philos_routine(t_philo *philo, t_data *data)
+void	philo_think(t_philo *philo)
 {
-	pthread_mutex_t		*first_fork;
-	pthread_mutex_t		*second_fork;
+	t_data		*data;
+	long		since_last_meal;
 
-	if (one_philosopher(data, philo))
+	if (check_death(philo))
 		return ;
-	if (philo->left_fork < philo->right_fork)
-	{
-		first_fork = philo->left_fork;
-		second_fork = philo->right_fork;
-	}
-	else
-	{
-		first_fork = philo->right_fork;
-		second_fork = philo->left_fork;
-	}
-	philo_activity(data, philo, first_fork, second_fork);
-	ft_usleep(data->time_to_sleep);
+	data = philo->data;
+	since_last_meal = get_time_in_ms(philo);
+	if (since_last_meal < data->time_to_die - data->time_to_sleep)
+		ft_usleep(10);
+	if (check_death(philo))
+		return ;
+	pthread_mutex_lock(&data->print_lock);
+	printf("%ld %d is thinking\n", ft_time() - data->start_time,
+		philo->id);
+	pthread_mutex_unlock(&data->print_lock);
 }
 
 void	*philo_routine(void *arg)
 {
 	t_philo		*philo;
-	t_data		*data;
 
 	philo = (t_philo *)arg;
-	data = philo->data;
 	if (philo->id % 2 == 0)
 		usleep(1000);
+	if (one_philosopher(philo->data, philo))
+		return (NULL);
 	while (!check_death(philo))
 	{
-		philos_routine(philo, data);
-		if (check_death(philo))
-			break ;
+		philo_has_fork(philo);
+		philo_think(philo);
 	}
 	return (NULL);
 }

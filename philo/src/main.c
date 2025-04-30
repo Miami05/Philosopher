@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 20:44:14 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/27 21:00:22 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:48:52 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 	}
 	if (validate_input(argc, argv))
 	{
-		printf("The number of threads needs to be a positive nunber\n");
+		printf("The number of threads needs to be a positive number\n");
 		return (1);
 	}
 	if (init_data(&data, argc, argv))

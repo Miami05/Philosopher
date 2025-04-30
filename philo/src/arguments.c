@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
 
 int	init_data(t_data *data, int argc, char **argv)
 {
@@ -21,10 +20,9 @@ int	init_data(t_data *data, int argc, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	data->must_eat = -1;
 	if (argc == 6)
 		data->must_eat = ft_atoi(argv[5]);
-	else
-		data->must_eat = -1;
 	data->someone_died = 0;
 	data->all_ate = 0;
 	data->start_time = ft_time();
