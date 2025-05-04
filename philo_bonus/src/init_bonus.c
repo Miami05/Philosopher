@@ -6,7 +6,7 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:57:12 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/30 19:12:07 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:02:45 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int	init_semaphore(t_data *data)
 	return (0);
 }
 
-void	init_philo(t_data *data, t_philo **philo)
+int	init_philo(t_data *data, t_philo **philo)
 {
 	int			i;
 
 	data->start_time = get_time();
 	*philo = malloc(sizeof(t_philo) * data->nb_philo);
-	if (!philo)
+	if (!*philo)
 		error("Memory allcation failed");
 	i = 0;
 	while (i < data->nb_philo)
@@ -72,6 +72,7 @@ void	init_philo(t_data *data, t_philo **philo)
 		(*philo)[i].data = data;
 		i++;
 	}
+	return (0);
 }
 
 void	start_simulation(t_data *data, t_philo *philo)
@@ -85,12 +86,7 @@ void	start_simulation(t_data *data, t_philo *philo)
 		if (philo[i].pid == -1)
 			error("Fork failed");
 		else if (philo[i].pid == 0)
-		{
 			philosopher_routine(&philo[i]);
-			cleanup_semaphore(data);
-			free(philo);
-			exit(0);
-		}
 		usleep(100);
 		i++;
 	}

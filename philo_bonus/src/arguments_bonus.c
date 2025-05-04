@@ -6,7 +6,7 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 18:19:52 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/30 19:08:48 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:07:52 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ void	wait_philo_utils(t_data *data, t_philo *philo)
 	}
 	cleanup_semaphore(data);
 	unlink_semaphore();
-	free(philo);
+	if (philo != NULL)
+		free(philo);
 }
 
 void	wait_philo_monitor(t_data *data, int *all_ate)

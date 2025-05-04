@@ -6,7 +6,7 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:53:33 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/30 18:54:28 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:03:47 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	error(const char *mssg);
 int		ft_atoi(char *str);
 int		init_semaphore(t_data *data);
 void	unlink_semaphore(void);
-void	init_philo(t_data *data, t_philo **philo);
+int		init_philo(t_data *data, t_philo **philo);
 long	get_time(void);
 void	start_simulation(t_data *data, t_philo *philo);
 void	philosopher_routine(t_philo *philo);

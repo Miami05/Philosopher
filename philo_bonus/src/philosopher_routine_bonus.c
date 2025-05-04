@@ -6,11 +6,12 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:54:24 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/30 19:09:46 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:09:04 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
+#include <time.h>
 
 void	take_forks(t_philo *philo)
 {
