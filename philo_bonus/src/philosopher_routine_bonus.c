@@ -6,12 +6,12 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:54:24 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/04/30 20:09:04 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:16:40 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
-#include <time.h>
+#include <semaphore.h>
 
 void	take_forks(t_philo *philo)
 {
@@ -82,8 +82,8 @@ void	philosopher_routine(t_philo *philo)
 			&& philo->meals_eaten >= philo->data->nb_of_times_each_philo_eat)
 		{
 			sem_post(philo->data->finished);
-			cleanup_semaphore(philo->data);
-			exit(0);
+			while (1)
+				usleep(1000);
 		}
 		sleep_think(philo);
 	}

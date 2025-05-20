@@ -6,7 +6,7 @@
 #    By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 18:14:56 by ldurmish          #+#    #+#              #
-#    Updated: 2025/04/30 18:43:33 by ldurmish         ###   ########.fr        #
+#    Updated: 2025/05/16 20:12:30 by ldurmish         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ GREEN = \033[32m
 
 # Bonus files for philosopher
 BONUS_SRCS = $(BONUS)main_bonus.c $(BONUS)utils_bonus.c $(BONUS)arguments_bonus.c \
-			 $(BONUS)init_bonus.c $(BONUS)philosopher_routine_bonus.c \
+			 $(BONUS)init_bonus.c $(BONUS)philosopher_routine_bonus.c $(BONUS)free_philo.c\
 
 # Object files
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)

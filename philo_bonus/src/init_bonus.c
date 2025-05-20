@@ -6,7 +6,7 @@
 /*   By: ldurmish < ldurmish@student.42wolfsburg.d  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:57:12 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/05/04 16:02:45 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/05/16 21:42:53 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	start_simulation(t_data *data, t_philo *philo)
 	{
 		philo[i].pid = fork();
 		if (philo[i].pid == -1)
+		{
+			cleanup_semaphore(data);
 			error("Fork failed");
+		}
 		else if (philo[i].pid == 0)
 			philosopher_routine(&philo[i]);
 		usleep(100);
